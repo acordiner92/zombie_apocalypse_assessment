@@ -1,0 +1,19 @@
+{
+  "name": "zombie_apocalypse_assessment",
+  "version": "1.0.0",
+  "description": "Ailo coding excercise",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acordiner92/zombie_apocalypse_assessment.git"
+  },
+  "author": "Andrew Cordiner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acordiner92/zombie_apocalypse_assessment/issues"
+  },
+  "homepage": "https://github.com/acordiner92/zombie_apocalypse_assessment#readme"
+}
