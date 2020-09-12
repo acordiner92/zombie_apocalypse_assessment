@@ -29,6 +29,7 @@
     "functional/no-conditional-statement": [
       "error",
       { "allowReturningBranches": "ifExhaustive" }
-    ]
+    ],
+    "functional/no-expression-statement": "off"
   }
 }

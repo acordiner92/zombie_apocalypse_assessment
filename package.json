@@ -4,12 +4,17 @@
   "description": "Ailo coding excercise",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsnd --transpile-only --cls src/app.ts",
+    "build": "tsc",
+    "formatting": "prettier --check ./src",
+    "lint": "eslint ./src",
+    "test": "jest ./test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acordiner92/zombie_apocalypse_assessment.git"
   },
+  "type": "module",
   "author": "Andrew Cordiner",
   "license": "ISC",
   "bugs": {
@@ -25,6 +30,7 @@
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.2",
+    "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
     "ts-node-dev": "^1.0.0-pre.62",
     "typescript": "^4.0.2"
