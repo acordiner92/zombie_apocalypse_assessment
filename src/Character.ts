@@ -9,9 +9,11 @@ export type Position = {
   readonly y: number;
 };
 
-export type Character = Position & {
-  readonly type: CharacterType;
-};
+export type Zombie = Position;
+
+export type Creature = Position;
+
+export type Character = Zombie | Creature;
 
 export const Movement = {
   up: 'U',
@@ -21,25 +23,23 @@ export const Movement = {
 } as const;
 export type Movement = typeof Movement[keyof typeof Movement];
 
-export const createZombie = (position: Position): Character => ({
+export const createZombie = (position: Position): Creature => ({
   ...position,
-  type: CharacterType.zombie,
 });
 
-export const createCreature = (position: Position): Character => ({
+export const createCreature = (position: Position): Zombie => ({
   ...position,
-  type: CharacterType.creature,
 });
 
-export const applyMove = (zombie: Character, move: Movement): Character => {
+export const applyMove = (zombie: Zombie, move: Movement): Character => {
   const { x, y } = zombie;
   switch (move) {
     case Movement.up:
-      return { ...zombie, y: y + 1 };
+      return { ...zombie, y: y - 1 };
     case Movement.right:
       return { ...zombie, x: x + 1 };
     case Movement.down:
-      return { ...zombie, y: y - 1 };
+      return { ...zombie, y: y + 1 };
     case Movement.left:
       return { ...zombie, x: x - 1 };
     default:

@@ -2,7 +2,6 @@ import {
   createZombie,
   Movement,
   applyMove,
-  CharacterType,
   createCreature,
 } from '../src/Character';
 
@@ -13,8 +12,8 @@ describe('Character', () => {
       y: 1,
     });
 
-    it('movement up increases y position by 1', () =>
-      expect(applyMove(zombie, Movement.up).y).toBe(2));
+    it('movement up decreases y position by 1', () =>
+      expect(applyMove(zombie, Movement.up).y).toBe(0));
 
     it('movement up does not change x position', () =>
       expect(applyMove(zombie, Movement.up).x).toBe(1));
@@ -25,8 +24,8 @@ describe('Character', () => {
     it('movement right increases x position by 1', () =>
       expect(applyMove(zombie, Movement.right).x).toBe(2));
 
-    it('movement down decreases y position by 1', () =>
-      expect(applyMove(zombie, Movement.down).y).toBe(0));
+    it('movement down increases y position by 1', () =>
+      expect(applyMove(zombie, Movement.down).y).toBe(2));
 
     it('movement down does not change x position', () =>
       expect(applyMove(zombie, Movement.down).x).toBe(1));
@@ -47,7 +46,6 @@ describe('Character', () => {
       expect(zombie).toStrictEqual({
         x: 1,
         y: 1,
-        type: CharacterType.zombie,
       });
     });
   });
@@ -61,7 +59,6 @@ describe('Character', () => {
       expect(creature).toStrictEqual({
         x: 2,
         y: 2,
-        type: CharacterType.creature,
       });
     });
   });
