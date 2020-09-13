@@ -1,10 +1,10 @@
 {
   "name": "zombie_apocalypse_assessment",
   "version": "1.0.0",
-  "description": "Ailo coding excercise",
+  "description": "Ailo coding exercise",
   "main": "index.ts",
   "scripts": {
-    "start": "tsnd --transpile-only --cls src/app.ts",
+    "start": "tsnd --cls src/index.ts",
     "build": "tsc",
     "formatting": "prettier --check ./src",
     "lint": "eslint ./src",
