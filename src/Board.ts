@@ -45,7 +45,7 @@ export const initialize = (
 ): Board => ({
   dimension: dimension - 1,
   activeZombieId: 0,
-  zombies: [createZombie(zombiePosition, [])],
+  zombies: [createZombie(zombiePosition)],
   creatures: creaturePositions.map(createCreature),
 });
 
@@ -90,10 +90,7 @@ export const executeZombieBite = (board: Board): Board => {
       ...board,
       zombies: [
         ...board.zombies,
-        createZombie(
-          { x: infectedCreature.x, y: infectedCreature.y },
-          board.zombies,
-        ),
+        createZombie({ x: infectedCreature.x, y: infectedCreature.y }),
       ],
       creatures: board.creatures.filter(
         c => c.x != infectedCreature.x || c.y != infectedCreature.y,

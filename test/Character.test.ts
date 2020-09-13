@@ -7,13 +7,10 @@ import {
 
 describe('Character', () => {
   describe('applyMove', () => {
-    const zombie = createZombie(
-      {
-        x: 1,
-        y: 1,
-      },
-      [],
-    );
+    const zombie = createZombie({
+      x: 1,
+      y: 1,
+    });
 
     test('movement up decreases y position by 1', () =>
       expect(applyMove(zombie, Movement.up).y).toBe(0));
@@ -42,15 +39,12 @@ describe('Character', () => {
 
   describe('createZombie', () => {
     test('creates a zombie', () => {
-      const zombie = createZombie(
-        {
-          x: 1,
-          y: 1,
-        },
-        [],
-      );
+      const zombie = createZombie({
+        x: 1,
+        y: 1,
+      });
       expect(zombie).toStrictEqual({
-        id: 0,
+        type: 'ZOMBIE',
         x: 1,
         y: 1,
       });
@@ -64,6 +58,7 @@ describe('Character', () => {
         y: 2,
       });
       expect(creature).toStrictEqual({
+        type: 'CREATURE',
         x: 2,
         y: 2,
       });

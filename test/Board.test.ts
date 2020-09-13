@@ -1,5 +1,5 @@
 import { initialize, applyZombieMove, executeZombieBite } from '../src/Board';
-import { Movement } from '../src/Character';
+import { Movement, Zombie } from '../src/Character';
 
 describe('Board', () => {
   describe('initialize', () => {
@@ -14,7 +14,9 @@ describe('Board', () => {
       expect(initializedBoard.activeZombieId).toBe(0));
 
     test('zombie array should have 1 zombie', () =>
-      expect(initializedBoard.zombies).toStrictEqual([{ id: 0, x: 0, y: 0 }]));
+      expect(initializedBoard.zombies).toStrictEqual([
+        { x: 0, y: 0, type: 'ZOMBIE' },
+      ]));
 
     test('creature array should have 2 creatures', () => {
       const twoCreaturesPositions = [...creaturePositions, { x: 2, y: 2 }];
@@ -24,8 +26,8 @@ describe('Board', () => {
         twoCreaturesPositions,
       );
       expect(initializedBoard.creatures).toStrictEqual([
-        { x: 1, y: 2 },
-        { x: 2, y: 2 },
+        { x: 1, y: 2, type: 'CREATURE' },
+        { x: 2, y: 2, type: 'CREATURE' },
       ]);
     });
   });
@@ -78,8 +80,8 @@ describe('Board', () => {
 
       const { zombies } = executeZombieBite(board);
       expect(zombies).toStrictEqual([
-        { id: 0, x: 1, y: 0 },
-        { id: 1, x: 1, y: 0 },
+        { x: 1, y: 0, type: 'ZOMBIE' },
+        { x: 1, y: 0, type: 'ZOMBIE' },
       ]);
     });
 
@@ -92,7 +94,7 @@ describe('Board', () => {
       const board = initialize(3, zombiePosition, creaturePositions);
 
       const { creatures } = executeZombieBite(board);
-      expect(creatures).toStrictEqual([{ x: 2, y: 2 }]);
+      expect(creatures).toStrictEqual([{ x: 2, y: 2, type: 'CREATURE' }]);
     });
 
     test('no change to zombies if active zombie is not on creature position', () => {
@@ -104,7 +106,7 @@ describe('Board', () => {
       const board = initialize(3, zombiePosition, creaturePositions);
 
       const { zombies } = executeZombieBite(board);
-      expect(zombies).toStrictEqual([{ id: 0, x: 1, y: 0 }]);
+      expect(zombies).toStrictEqual([{ x: 1, y: 0, type: 'ZOMBIE' }]);
     });
 
     test('no change to creatures if active zombie is not on creature position', () => {
@@ -117,8 +119,8 @@ describe('Board', () => {
 
       const { creatures } = executeZombieBite(board);
       expect(creatures).toStrictEqual([
-        { x: 1, y: 1 },
-        { x: 2, y: 2 },
+        { x: 1, y: 1, type: 'CREATURE' },
+        { x: 2, y: 2, type: 'CREATURE' },
       ]);
     });
   });

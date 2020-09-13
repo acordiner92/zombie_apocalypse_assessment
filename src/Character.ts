@@ -1,21 +1,15 @@
-export const CharacterType = {
-  zombie: 'ZOMBIE',
-  creature: 'CREATURE',
-} as const;
-export type CharacterType = typeof CharacterType[keyof typeof CharacterType];
-
 export type Position = {
   readonly x: number;
   readonly y: number;
 };
 
 export type Zombie = Position & {
-  readonly id: number;
+  readonly type: 'ZOMBIE';
 };
 
-export type Creature = Position;
-
-export type Character = Zombie | Creature;
+export type Creature = Position & {
+  readonly type: 'CREATURE';
+};
 
 export const Movement = {
   up: 'U',
@@ -32,12 +26,9 @@ export type Movement = typeof Movement[keyof typeof Movement];
  * @param {ReadonlyArray<Zombie>} zombies
  * @returns {Zombie}
  */
-export const createZombie = (
-  position: Position,
-  zombies: ReadonlyArray<Zombie>,
-): Zombie => ({
+export const createZombie = (position: Position): Zombie => ({
   ...position,
-  id: zombies.length,
+  type: 'ZOMBIE',
 });
 
 /**
@@ -48,6 +39,7 @@ export const createZombie = (
  */
 export const createCreature = (position: Position): Creature => ({
   ...position,
+  type: 'CREATURE',
 });
 
 /**
