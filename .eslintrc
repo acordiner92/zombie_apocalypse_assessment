@@ -30,6 +30,7 @@
       "error",
       { "allowReturningBranches": "ifExhaustive" }
     ],
-    "functional/no-expression-statement": "off"
+    "functional/no-expression-statement": "off",
+    "functional/no-return-void": "off"
   }
 }

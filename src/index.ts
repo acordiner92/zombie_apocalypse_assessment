@@ -1,18 +1,25 @@
 import { readJsonFile } from './FileReader';
 import { decodeJson } from './GameSetupParser';
-import { execute } from './Game';
+import { execute, GameResult } from './Game';
+import Logger from './Logger';
 
-// TODO: fix this linting error
-// eslint-disable-next-line functional/no-return-void
+const logEndGameResult = (gameResult: GameResult): void =>
+  Logger.info(`
+    zombies\` score: ${gameResult.zombieScore}
+    zombies\` positions: 
+    ${gameResult.zombiePositions.map(z => `(${z.x},${z.y})`).join(' ')}
+  `);
+
 const runGame = (): void => {
-  const jsonFile = readJsonFile(`${__dirname}/src/gameSetup.json`);
+  const jsonFile = readJsonFile(`${__dirname}/gameSetup.json`);
   const gameSetup = decodeJson(jsonFile);
-  execute(
+  const gameResult = execute(
     gameSetup.boardDimension,
     gameSetup.zombiePosition,
-    gameSetup.creaturePosition,
-    gameSetup.movement,
+    gameSetup.creaturePositions,
+    gameSetup.movements,
   );
+  logEndGameResult(gameResult);
 };
 
 runGame();

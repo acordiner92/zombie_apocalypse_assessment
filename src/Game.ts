@@ -1,7 +1,7 @@
 import { Movement, Position } from './Character';
 import { initialize, applyZombieMove, executeZombieBite, Board } from './Board';
 
-type GameResult = {
+export type GameResult = {
   readonly zombieScore: number;
   readonly zombiePositions: ReadonlyArray<Position>;
 };
