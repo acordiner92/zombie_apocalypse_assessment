@@ -29,6 +29,26 @@ const applyBoardEdgeMovement = (zombie: Zombie, board: Board): Zombie => {
   }
 };
 
+const convertInfectedCreatureToZombie = (
+  infectedCreature: Creature,
+  board: Board,
+): Board => ({
+  ...board,
+  zombies: [
+    ...board.zombies,
+    createZombie({ x: infectedCreature.x, y: infectedCreature.y }),
+  ],
+  creatures: board.creatures.filter(
+    c => c.x != infectedCreature.x || c.y != infectedCreature.y,
+  ),
+});
+
+const getInfectedCreature = (
+  activeZombie: Zombie,
+  board: Board,
+): Creature | undefined =>
+  board.creatures.find(c => c.x === activeZombie.x && c.y === activeZombie.y);
+
 /**
  * Creates initial board with laid out creatures
  * and zombies
@@ -62,13 +82,9 @@ export const applyZombieMove = (board: Board, move: Movement): Board => {
 
   return {
     ...board,
-    zombies: board.zombies.map((x, i) => {
-      if (i === board.activeZombieId) {
-        return movedZombie;
-      } else {
-        return x;
-      }
-    }),
+    zombies: board.zombies.map((z, i) =>
+      i === board.activeZombieId ? movedZombie : z,
+    ),
   };
 };
 
@@ -82,21 +98,8 @@ export const applyZombieMove = (board: Board, move: Movement): Board => {
  */
 export const executeZombieBite = (board: Board): Board => {
   const activeZombie = board.zombies[board.activeZombieId];
-  const infectedCreature = board.creatures.find(
-    c => c.x === activeZombie.x && c.y === activeZombie.y,
-  );
-  if (infectedCreature) {
-    return {
-      ...board,
-      zombies: [
-        ...board.zombies,
-        createZombie({ x: infectedCreature.x, y: infectedCreature.y }),
-      ],
-      creatures: board.creatures.filter(
-        c => c.x != infectedCreature.x || c.y != infectedCreature.y,
-      ),
-    };
-  } else {
-    return board;
-  }
+  const infectedCreature = getInfectedCreature(activeZombie, board);
+  return infectedCreature
+    ? convertInfectedCreatureToZombie(infectedCreature, board)
+    : board;
 };
