@@ -11,6 +11,12 @@ import {
   isMovementsValid,
 } from './GameSetupValidator';
 
+/**
+ * Command line user interface that asks a series of questions to
+ * set up the game.
+ *
+ * @returns {Promise<GameSetup>}
+ */
 export const readFromCommandLine = async (): Promise<GameSetup> => {
   const questions: readonly PromptObject[] = [
     {

@@ -1,5 +1,10 @@
 import { Movement, Position } from './Character';
-
+/**
+ * Parses command line value into the zombie position value.
+ *
+ * @param {string} value
+ * @returns {Position}
+ */
 export const parseZombiePosition = (value: string): Position => {
   const [x, y] = value.split(',');
   return {
@@ -8,6 +13,12 @@ export const parseZombiePosition = (value: string): Position => {
   };
 };
 
+/**
+ * Parses command line value into creature position array.
+ *
+ * @param {string} value
+ * @returns {ReadonlyArray<Position>}
+ */
 export const parseCreaturePositions = (
   value: string,
 ): ReadonlyArray<Position> => {
@@ -21,6 +32,12 @@ export const parseCreaturePositions = (
   });
 };
 
+/**
+ * Parses command line value into movements array
+ *
+ * @param {*} x
+ * @returns
+ */
 export const parseMovements = (value: string): ReadonlyArray<Movement> =>
   value.split('').map(x => {
     switch (x) {

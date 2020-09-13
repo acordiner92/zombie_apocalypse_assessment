@@ -34,6 +34,13 @@ const executeMovements = (
   }
 };
 
+/**
+ * Runs the game by executing the series of movements from
+ * gameSetup.
+ *
+ * @param {GameSetup} gameSetup
+ * @returns {GameResult}
+ */
 export const execute = (gameSetup: GameSetup): GameResult => {
   const initialBoard = initialize(
     gameSetup.boardDimension,
