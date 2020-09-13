@@ -1,4 +1,3 @@
-import { initialize } from '../src/Board';
 import { execute } from '../src/Game';
 import { Movement } from '../src/Character';
 
@@ -37,9 +36,53 @@ describe('Game', () => {
       const result = execute(3, zombiePosition, creaturePositions, [
         Movement.down,
       ]);
-      expect(result.zombiePositions).toBe([
+      expect(result.zombiePositions).toStrictEqual([
         { x: 0, y: 1 },
         { x: 0, y: 2 },
+      ]);
+    });
+
+    test('if a zombie moves and bites a creature and that creature bites another creature then the score is 2', () => {
+      const zombiePosition = { x: 0, y: 0 };
+      const creaturePositions = [
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+      ];
+      const result = execute(3, zombiePosition, creaturePositions, [
+        Movement.right,
+      ]);
+      expect(result.zombieScore).toBe(2);
+    });
+
+    test('if a zombie moves and bites a creature and that creature bites another creature then there should be 3 zombie positions', () => {
+      const zombiePosition = { x: 0, y: 0 };
+      const creaturePositions = [
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+      ];
+      const result = execute(3, zombiePosition, creaturePositions, [
+        Movement.right,
+      ]);
+      expect(result.zombiePositions).toStrictEqual([
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+        { x: 0, y: 0 },
+      ]);
+    });
+
+    test('if a zombie moves and bites a creature and that creature bites another creature from an edge move then there should be 3 zombie positions', () => {
+      const zombiePosition = { x: 0, y: 0 };
+      const creaturePositions = [
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+      ];
+      const result = execute(3, zombiePosition, creaturePositions, [
+        Movement.left,
+      ]);
+      expect(result.zombiePositions).toStrictEqual([
+        { x: 2, y: 0 },
+        { x: 1, y: 0 },
+        { x: 0, y: 0 },
       ]);
     });
   });

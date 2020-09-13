@@ -24,31 +24,38 @@ export const initialize = (
   x: dimension - 1,
   y: dimension - 1,
   activeZombieId: 0,
-  zombies: [createZombie(zombiePosition)],
+  zombies: [createZombie(zombiePosition, [])],
   creatures: creaturePositions.map(createCreature),
 });
 
-const isOutsideBoardBoundaries = (zombie: Zombie, board: Board): boolean =>
-  zombie.x > board.x || zombie.x < 0 || zombie.y > board.y || zombie.y < 0;
+const applyBoardEdgeMovement = (zombie: Zombie, board: Board): Zombie => {
+  if (zombie.x > board.x) {
+    return { ...zombie, x: 0 };
+  } else if (zombie.y > board.y) {
+    return { ...zombie, y: 0 };
+  } else if (zombie.x < 0) {
+    return { ...zombie, x: board.x };
+  } else if (zombie.y < 0) {
+    return { ...zombie, y: board.y };
+  } else {
+    return zombie;
+  }
+};
 
 export const applyZombieMove = (board: Board, move: Movement): Board => {
   const zombie = board.zombies[board.activeZombieId];
-  const movedZombie = applyMove(zombie, move);
-  if (isOutsideBoardBoundaries(movedZombie, board)) {
-    //TODO: No such thing as out of bounds since it loops around
-    return board;
-  } else {
-    return {
-      ...board,
-      zombies: board.zombies.map((x, i) => {
-        if (i === board.activeZombieId) {
-          return movedZombie;
-        } else {
-          return x;
-        }
-      }),
-    };
-  }
+  const movedZombie = applyBoardEdgeMovement(applyMove(zombie, move), board);
+
+  return {
+    ...board,
+    zombies: board.zombies.map((x, i) => {
+      if (i === board.activeZombieId) {
+        return movedZombie;
+      } else {
+        return x;
+      }
+    }),
+  };
 };
 
 export const executeZombieBite = (board: Board): Board => {
@@ -61,10 +68,13 @@ export const executeZombieBite = (board: Board): Board => {
       ...board,
       zombies: [
         ...board.zombies,
-        createZombie({ x: infectedCreature.x, y: infectedCreature.y }),
+        createZombie(
+          { x: infectedCreature.x, y: infectedCreature.y },
+          board.zombies,
+        ),
       ],
       creatures: board.creatures.filter(
-        c => c.x != infectedCreature.x && c.y != infectedCreature.y,
+        c => c.x != infectedCreature.x || c.y != infectedCreature.y,
       ),
     };
   } else {
