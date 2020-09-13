@@ -1,4 +1,5 @@
-import { initialize, CharacterType } from '../src/Board';
+import { initialize } from '../src/Board';
+import { CharacterType } from '../src/Character';
 
 describe('Board', () => {
   describe('initialize', () => {
