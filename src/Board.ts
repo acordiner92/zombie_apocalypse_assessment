@@ -8,7 +8,7 @@ import {
   Creature,
 } from './Character';
 
-type Board = {
+export type Board = {
   readonly x: number;
   readonly y: number;
   readonly activeZombieId: number;
@@ -35,6 +35,7 @@ export const applyZombieMove = (board: Board, move: Movement): Board => {
   const zombie = board.zombies[board.activeZombieId];
   const movedZombie = applyMove(zombie, move);
   if (isOutsideBoardBoundaries(movedZombie, board)) {
+    //TODO: No such thing as out of bounds since it loops around
     return board;
   } else {
     return {

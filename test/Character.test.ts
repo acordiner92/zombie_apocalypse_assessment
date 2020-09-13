@@ -12,33 +12,33 @@ describe('Character', () => {
       y: 1,
     });
 
-    it('movement up decreases y position by 1', () =>
+    test('movement up decreases y position by 1', () =>
       expect(applyMove(zombie, Movement.up).y).toBe(0));
 
-    it('movement up does not change x position', () =>
+    test('movement up does not change x position', () =>
       expect(applyMove(zombie, Movement.up).x).toBe(1));
 
-    it('movement right does not change y position', () =>
+    test('movement right does not change y position', () =>
       expect(applyMove(zombie, Movement.right).y).toBe(1));
 
-    it('movement right increases x position by 1', () =>
+    test('movement right increases x position by 1', () =>
       expect(applyMove(zombie, Movement.right).x).toBe(2));
 
-    it('movement down increases y position by 1', () =>
+    test('movement down increases y position by 1', () =>
       expect(applyMove(zombie, Movement.down).y).toBe(2));
 
-    it('movement down does not change x position', () =>
+    test('movement down does not change x position', () =>
       expect(applyMove(zombie, Movement.down).x).toBe(1));
 
-    it('movement left decreases x position  by 1', () =>
+    test('movement left decreases x position  by 1', () =>
       expect(applyMove(zombie, Movement.left).x).toBe(0));
 
-    it('movement left does not change y position', () =>
+    test('movement left does not change y position', () =>
       expect(applyMove(zombie, Movement.left).y).toBe(1));
   });
 
   describe('createZombie', () => {
-    it('creates a zombie', () => {
+    test('creates a zombie', () => {
       const zombie = createZombie({
         x: 1,
         y: 1,
@@ -51,7 +51,7 @@ describe('Character', () => {
   });
 
   describe('createCreature', () => {
-    it('creates a creature', () => {
+    test('creates a creature', () => {
       const creature = createCreature({
         x: 2,
         y: 2,
