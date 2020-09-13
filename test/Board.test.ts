@@ -7,11 +7,8 @@ describe('Board', () => {
     const creaturePositions = [{ x: 1, y: 2 }];
     const initializedBoard = initialize(4, zombiePosition, creaturePositions);
 
-    test('x coordinate is size of dimension', () =>
-      expect(initializedBoard.x).toBe(3));
-
-    test('y coordinate is size of dimension', () =>
-      expect(initializedBoard.y).toBe(3));
+    test('dimension is one less than dimension specified', () =>
+      expect(initializedBoard.dimension).toBe(3));
 
     test('activeZombieId is set to 0', () =>
       expect(initializedBoard.activeZombieId).toBe(0));

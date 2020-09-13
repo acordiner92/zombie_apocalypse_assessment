@@ -9,22 +9,21 @@ import {
 } from './Character';
 
 export type Board = {
-  readonly x: number;
-  readonly y: number;
+  readonly dimension: number;
   readonly activeZombieId: number;
   readonly zombies: ReadonlyArray<Zombie>;
   readonly creatures: ReadonlyArray<Creature>;
 };
 
 const applyBoardEdgeMovement = (zombie: Zombie, board: Board): Zombie => {
-  if (zombie.x > board.x) {
+  if (zombie.x > board.dimension) {
     return { ...zombie, x: 0 };
-  } else if (zombie.y > board.y) {
+  } else if (zombie.y > board.dimension) {
     return { ...zombie, y: 0 };
   } else if (zombie.x < 0) {
-    return { ...zombie, x: board.x };
+    return { ...zombie, x: board.dimension };
   } else if (zombie.y < 0) {
-    return { ...zombie, y: board.y };
+    return { ...zombie, y: board.dimension };
   } else {
     return zombie;
   }
@@ -44,8 +43,7 @@ export const initialize = (
   zombiePosition: Position,
   creaturePositions: ReadonlyArray<Position>,
 ): Board => ({
-  x: dimension - 1,
-  y: dimension - 1,
+  dimension: dimension - 1,
   activeZombieId: 0,
   zombies: [createZombie(zombiePosition, [])],
   creatures: creaturePositions.map(createCreature),
