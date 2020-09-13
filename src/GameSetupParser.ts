@@ -1,14 +1,28 @@
-import { Position, Movement } from './Character';
+import { Movement, Position } from './Character';
 
-type GameSetup = {
-  readonly boardDimension: number;
-  readonly zombiePosition: Position;
-  readonly creaturePositions: ReadonlyArray<Position>;
-  readonly movements: ReadonlyArray<Movement>;
+export const parseZombiePosition = (value: string): Position => {
+  const [x, y] = value.split(',');
+  return {
+    x: parseInt(x),
+    y: parseInt(y),
+  };
 };
 
-const parseMovements = (movementValue: string): ReadonlyArray<Movement> =>
-  movementValue.split('').map(x => {
+export const parseCreaturePositions = (
+  value: string,
+): ReadonlyArray<Position> => {
+  const positions = value.split(' ');
+  return positions.map(p => {
+    const [x, y] = p.split(',');
+    return {
+      x: parseInt(x),
+      y: parseInt(y),
+    };
+  });
+};
+
+export const parseMovements = (value: string): ReadonlyArray<Movement> =>
+  value.split('').map(x => {
     switch (x) {
       case 'U':
         return Movement.up;
@@ -24,12 +38,3 @@ const parseMovements = (movementValue: string): ReadonlyArray<Movement> =>
         );
     }
   });
-
-export const decodeJson = (jsonString: string): GameSetup => {
-  const jsonValue = JSON.parse(jsonString);
-  const gameSetup = {
-    ...jsonValue,
-    movements: parseMovements(jsonValue.movements),
-  };
-  return gameSetup;
-};

@@ -1,7 +1,6 @@
-import { readJsonFile } from './FileReader';
-import { decodeJson } from './GameSetupParser';
 import { execute, GameResult } from './Game';
 import Logger from './Logger';
+import { readFromCommandLine } from './GameSetupReader';
 
 const logEndGameResult = (gameResult: GameResult): void =>
   Logger.info(`
@@ -10,16 +9,10 @@ const logEndGameResult = (gameResult: GameResult): void =>
     ${gameResult.zombiePositions.map(z => `(${z.x},${z.y})`).join(' ')}
   `);
 
-const runGame = (): void => {
-  const jsonFile = readJsonFile(`${__dirname}/gameSetup.json`);
-  const gameSetup = decodeJson(jsonFile);
-  const gameResult = execute(
-    gameSetup.boardDimension,
-    gameSetup.zombiePosition,
-    gameSetup.creaturePositions,
-    gameSetup.movements,
-  );
+const runGame = async (): Promise<void> => {
+  const gameSetup = await readFromCommandLine();
+  const gameResult = execute(gameSetup);
   logEndGameResult(gameResult);
 };
 
-runGame();
+void runGame();

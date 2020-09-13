@@ -6,6 +6,13 @@ export type GameResult = {
   readonly zombiePositions: ReadonlyArray<Position>;
 };
 
+export type GameSetup = {
+  readonly boardDimension: number;
+  readonly zombiePosition: Position;
+  readonly creaturePositions: ReadonlyArray<Position>;
+  readonly movements: ReadonlyArray<Movement>;
+};
+
 const calculateZombieScore = (board: Board): number =>
   board.zombies.length > 1 ? board.zombies.length - 1 : 0;
 
@@ -27,14 +34,13 @@ const executeMovements = (
   }
 };
 
-export const execute = (
-  boardSize: number,
-  zombiePosition: Position,
-  creaturePositions: ReadonlyArray<Position>,
-  movements: ReadonlyArray<Movement>,
-): GameResult => {
-  const initialBoard = initialize(boardSize, zombiePosition, creaturePositions);
-  const finishedBoard = executeMovements(initialBoard, movements);
+export const execute = (gameSetup: GameSetup): GameResult => {
+  const initialBoard = initialize(
+    gameSetup.boardDimension,
+    gameSetup.zombiePosition,
+    gameSetup.creaturePositions,
+  );
+  const finishedBoard = executeMovements(initialBoard, gameSetup.movements);
 
   return {
     zombieScore: calculateZombieScore(finishedBoard),
