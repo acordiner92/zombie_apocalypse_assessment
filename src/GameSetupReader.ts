@@ -5,6 +5,11 @@ import {
   parseZombiePosition,
   parseCreaturePositions,
 } from './GameSetupParser';
+import {
+  isZombiePositionValid,
+  isCreaturePositionValid,
+  isMovementsValid,
+} from './GameSetupValidator';
 
 export const readFromCommandLine = async (): Promise<GameSetup> => {
   const questions: readonly PromptObject[] = [
@@ -17,34 +22,19 @@ export const readFromCommandLine = async (): Promise<GameSetup> => {
       type: 'text',
       name: 'zombiePosition',
       message: 'What is the position of zombie?',
-      validate: value => {
-        const matches = value.match(/^([0-9],[0-9])$/);
-        return matches
-          ? true
-          : 'Invalid zombie position format, correct format should be e.g 1,2';
-      },
+      validate: isZombiePositionValid,
     },
     {
       type: 'text',
       name: 'creaturePositions',
       message: 'What is the positions of the creature?',
-      validate: value => {
-        const matches = value.match(/^(\s?[0-9],[0-9]\s?)+$/);
-        return matches
-          ? true
-          : 'Invalid creature positions format, correct format should be e.g 1,2 0,1';
-      },
+      validate: isCreaturePositionValid,
     },
     {
       type: 'text',
       name: 'movements',
       message: 'What is the movements of the zombie?',
-      validate: value => {
-        const matches = value.match(/^[U,R,D,L]+$/);
-        return matches
-          ? true
-          : 'Invalid movements, valid movements are URDL e.g DDRULL';
-      },
+      validate: isMovementsValid,
     },
   ];
 
