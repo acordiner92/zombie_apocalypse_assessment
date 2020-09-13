@@ -1,4 +1,10 @@
-import { createZombie, Movement, applyMove } from '../src/Character';
+import {
+  createZombie,
+  Movement,
+  applyMove,
+  CharacterType,
+  createCreature,
+} from '../src/Character';
 
 describe('Character', () => {
   describe('applyMove', () => {
@@ -30,5 +36,33 @@ describe('Character', () => {
 
     it('movement left does not change y position', () =>
       expect(applyMove(zombie, Movement.left).y).toBe(1));
+  });
+
+  describe('createZombie', () => {
+    it('creates a zombie', () => {
+      const zombie = createZombie({
+        x: 1,
+        y: 1,
+      });
+      expect(zombie).toStrictEqual({
+        x: 1,
+        y: 1,
+        type: CharacterType.zombie,
+      });
+    });
+  });
+
+  describe('createCreature', () => {
+    it('creates a creature', () => {
+      const creature = createCreature({
+        x: 2,
+        y: 2,
+      });
+      expect(creature).toStrictEqual({
+        x: 2,
+        y: 2,
+        type: CharacterType.creature,
+      });
+    });
   });
 });
