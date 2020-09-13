@@ -1,12 +1,12 @@
 import { Movement, Position } from './Character';
 import { initialize, applyZombieMove, executeZombieBite, Board } from './Board';
 
-export type GameResult = {
+export type SimulatorResult = {
   readonly zombieScore: number;
   readonly zombiePositions: ReadonlyArray<Position>;
 };
 
-export type GameSetup = {
+export type SimulatorSetup = {
   readonly boardDimension: number;
   readonly zombiePosition: Position;
   readonly creaturePositions: ReadonlyArray<Position>;
@@ -35,19 +35,22 @@ const executeMovements = (
 };
 
 /**
- * Runs the game by executing the series of movements from
- * gameSetup.
+ * Runs the simulation by executing the series of movements from
+ * simulatorSetup.
  *
- * @param {GameSetup} gameSetup
- * @returns {GameResult}
+ * @param {SimulatorSetup} simulatorSetup
+ * @returns {SimulatorResult}
  */
-export const execute = (gameSetup: GameSetup): GameResult => {
+export const execute = (simulatorSetup: SimulatorSetup): SimulatorResult => {
   const initialBoard = initialize(
-    gameSetup.boardDimension,
-    gameSetup.zombiePosition,
-    gameSetup.creaturePositions,
+    simulatorSetup.boardDimension,
+    simulatorSetup.zombiePosition,
+    simulatorSetup.creaturePositions,
   );
-  const finishedBoard = executeMovements(initialBoard, gameSetup.movements);
+  const finishedBoard = executeMovements(
+    initialBoard,
+    simulatorSetup.movements,
+  );
 
   return {
     zombieScore: calculateZombieScore(finishedBoard),

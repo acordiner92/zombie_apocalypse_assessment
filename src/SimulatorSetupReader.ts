@@ -1,23 +1,23 @@
 import prompts, { PromptObject } from 'prompts';
-import { GameSetup } from './Game';
+import { SimulatorSetup } from './Simulator';
 import {
   parseMovements,
   parseZombiePosition,
   parseCreaturePositions,
-} from './GameSetupParser';
+} from './SimulatorSetupParser';
 import {
   isZombiePositionValid,
   isCreaturePositionValid,
   isMovementsValid,
-} from './GameSetupValidator';
+} from './SimulatorSetupValidator';
 
 /**
  * Command line user interface that asks a series of questions to
- * set up the game.
+ * set up the simulation.
  *
- * @returns {Promise<GameSetup>}
+ * @returns {Promise<SimulatorSetup>}
  */
-export const readFromCommandLine = async (): Promise<GameSetup> => {
+export const readFromCommandLine = async (): Promise<SimulatorSetup> => {
   const questions: readonly PromptObject[] = [
     {
       type: 'number',

@@ -2,9 +2,9 @@ import {
   isZombiePositionValid,
   isCreaturePositionValid,
   isMovementsValid,
-} from '../src/GameSetupValidator';
+} from '../src/SimulatorSetupValidator';
 
-describe('GameSetupValidator', () => {
+describe('SimulatorSetupValidator', () => {
   describe('isZombiePositionValid', () => {
     test('error message is return if invalid', () =>
       expect(isZombiePositionValid('1')).toBe(

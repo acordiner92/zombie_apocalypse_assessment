@@ -2,10 +2,10 @@ import {
   parseZombiePosition,
   parseCreaturePositions,
   parseMovements,
-} from '../src/GameSetupParser';
+} from '../src/SimulatorSetupParser';
 import { Movement } from '../src/Character';
 
-describe('GameSetupParse', () => {
+describe('SimulatorSetupParse', () => {
   describe('parseZombiePosition', () => {
     test('string value gets mapped correct to position', () =>
       expect(parseZombiePosition('1,2')).toStrictEqual({
