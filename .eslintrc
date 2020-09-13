@@ -31,6 +31,7 @@
       { "allowReturningBranches": "ifExhaustive" }
     ],
     "functional/no-expression-statement": "off",
-    "functional/no-return-void": "off"
+    "functional/no-return-void": "off",
+    "functional/no-try-statement": "off"
   }
 }

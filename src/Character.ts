@@ -67,9 +67,7 @@ export const applyMove = (zombie: Zombie, move: Movement): Zombie => {
       return { ...zombie, x: x + 1 };
     case Movement.down:
       return { ...zombie, y: y + 1 };
-    case Movement.left:
-      return { ...zombie, x: x - 1 };
     default:
-      throw new Error('unsupported move'); // TODO: fix this to return Either
+      return { ...zombie, x: x - 1 };
   }
 };

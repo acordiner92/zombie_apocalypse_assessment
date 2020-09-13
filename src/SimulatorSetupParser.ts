@@ -47,11 +47,7 @@ export const parseMovements = (value: string): ReadonlyArray<Movement> =>
         return Movement.right;
       case 'D':
         return Movement.down;
-      case 'L':
-        return Movement.left;
       default:
-        throw new Error(
-          `movment ${x} does not exists, Supported movements are U,R,D,L`,
-        );
+        return Movement.left;
     }
   });
