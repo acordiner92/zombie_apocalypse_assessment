@@ -85,5 +85,46 @@ describe('Game', () => {
         { x: 0, y: 0 },
       ]);
     });
+
+    test('multi movement executes correctly and shows correct zombie positions', () => {
+      const zombiePosition = { x: 2, y: 1 };
+      const creaturePositions = [
+        { x: 0, y: 1 },
+        { x: 1, y: 2 },
+        { x: 3, y: 1 },
+      ];
+      const result = execute(4, zombiePosition, creaturePositions, [
+        Movement.down,
+        Movement.left,
+        Movement.up,
+        Movement.up,
+        Movement.right,
+        Movement.right,
+      ]);
+      expect(result.zombiePositions).toStrictEqual([
+        { x: 3, y: 0 },
+        { x: 2, y: 1 },
+        { x: 1, y: 0 },
+        { x: 0, y: 0 },
+      ]);
+    });
+
+    test('multi movement executes correctly and shows correct zombie score', () => {
+      const zombiePosition = { x: 2, y: 1 };
+      const creaturePositions = [
+        { x: 0, y: 1 },
+        { x: 1, y: 2 },
+        { x: 3, y: 1 },
+      ];
+      const result = execute(4, zombiePosition, creaturePositions, [
+        Movement.down,
+        Movement.left,
+        Movement.up,
+        Movement.up,
+        Movement.right,
+        Movement.right,
+      ]);
+      expect(result.zombieScore).toStrictEqual(3);
+    });
   });
 });
